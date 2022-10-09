@@ -7,5 +7,26 @@ export default NextAuth({
             clientId: process.env.GithubId,
             clientSecret: process.env.GithubSecret
         })
-    ]
+    ],
+    // database: process.env.MONGODBURL,
+    session: {
+        jwt: true
+    },
+    jwt: {
+        secret: "asjdbaskhdksbdk"
+    },
+    callbacks: {
+        async jwt(token, user) {
+            token.id = user.id
+            if (user) {
+
+                return token
+            }
+        },
+        async sesion(session, token) {
+            sesion.user.id = token.id
+
+            return session
+        }
+    }
 })
