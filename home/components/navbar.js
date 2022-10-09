@@ -2,7 +2,12 @@ import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 function Navbar() {
-    const [session, loading] = useSession()
+    // const [session, loading] = useSession()
+
+    const { data: session, status } = useSession()
+    const loading = status === "loading"
+
+    console.log(session);
     return (
         <nav className='header'>
             <h1 className='logo'>
